@@ -3,60 +3,39 @@
 #include <string.h>
 #include <zlib.h>
 
-/*void success (int *password, int *wordlist)
+int main(void)
 {
-
-}
-void wordlist
-{
-
-}
-*/
-
-int main(void)//int argc, char *argv[])
-{
-/*	char path_buffer[100];
-	//int wordlist = 
-	FILE*file_in_question;
-	FILE*file[100]; = NULL;
-
-	file = fopen("wordlist.txt", "r+");
-
-	char input[100];
-	printf("Keep");
-	
-	printf("Grab your wordlist path : ");
-	fgets(path_buffer, sizeof(path_buffer), stdin);
-*/
-	//int file[100];
 	FILE*file;
 	
+    int count = 0;
 	char path[128];
 	char token[128];
-	//Ask to write his path to open and read the texte
+
 	printf("Write your wordlist path: ");
 	scanf("%s", path);
-		//Open the file to "read" 
 		if ((file = fopen(path, "rb")) != NULL)
 		{
 // To read all file /!\ You need to remove hooks just above the line
 
 		while (fscanf(file, "%s", token) != EOF)
 		{
-			printf("%s", token);
+			//printf("Successfull ! %s", token);
 			
 		}
-	char choice[50];
-	printf("\n DO you want to see the tokens inside the file ? (Y/N) : ");
-	scanf("%c", &choice);
+	char choice;
+	printf("\nDO you want to see the tokens inside the file ? (Y/N) : ");
+	scanf(" %c", &choice);
 
 	if (choice == 'y')
 	{
 		rewind (file);
-		while (fscanf(file, "%s", token) != EOF)
+		
+        while (fgets(token, sizeof(token), file) != NULL)
 		{
 			printf("%s", token);
+            count++;
 		}
+        printf ("%d token are detected.\n", count);
 	}
 	fclose(file);
 	}	else 
@@ -64,7 +43,6 @@ int main(void)//int argc, char *argv[])
 		printf("No such file.\n");
 	}
 
-	
 		/*{
 			printf("Your file is open.\n");
 
@@ -80,7 +58,6 @@ int main(void)//int argc, char *argv[])
 			printf("Error I can't open your file.\n");
 		}*/
 		
-
 
 	return 0;
 }
