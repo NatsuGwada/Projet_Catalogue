@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,7 +24,7 @@ int main(void)
 			
 		}
 	char choice;
-	printf("\nDO you want to see the tokens inside the file ? (Y/N) : ");
+	printf("\nDo you want to see how much tokens is inside this file ? (y/n) : ");
 	scanf(" %c", &choice);
 
 	if (choice == 'y')
@@ -32,7 +33,8 @@ int main(void)
 		
         while (fgets(token, sizeof(token), file) != NULL)
 		{
-			printf("%s", token);
+			// To printf all token in txt file
+			//printf("%s", token);
             count++;
 		}
         printf ("%d token are detected.\n", count);
