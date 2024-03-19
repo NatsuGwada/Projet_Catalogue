@@ -4,27 +4,32 @@
 #include <string.h>
 #include <zlib.h>
 
+#define MAX_FILENAME_LENGTH 256
+#define MAX_WORDLIST_FILENAME_LENGTH 256
+#define MAX_PASSWORD_LENGTH 128
+#define MAX_WORD_LENGTH 128
+
+
 int main(void)
 {
 	FILE*file;
 	
-    int count = 0;
-	char path[128];
+    //int count = 0;
+	char txt_path[128];
 	char token[128];
+	char zip_file[128];
+	char choice;
 
 	printf("Write your wordlist path: ");
-	scanf("%s", path);
-		if ((file = fopen(path, "rb")) != NULL)
+	scanf("%s", txt_path);
+		if ((file = fopen(txt_path, "rb")) != NULL)
 		{
 // To read all file /!\ You need to remove hooks just above the line
+	
+	printf("Write your zipfile path: ")
+	scanf("%s",zip_file);
 
-		while (fscanf(file, "%s", token) != EOF)
-		{
-			//printf("Successfull ! %s", token);
-			
-		}
-	char choice;
-	printf("\nDo you want to see how much tokens is inside this file ? (y/n) : ");
+	printf("\nDo you want to crack this file ? (y/n) : ");
 	scanf(" %c", &choice);
 
 	if (choice == 'y')
@@ -44,22 +49,6 @@ int main(void)
 	{
 		printf("No such file.\n");
 	}
-
-		/*{
-			printf("Your file is open.\n");
-
-			printf("The 5 first token is: \n");
-
-			for (int i = 0; i < 5 && fscanf(file, "%s", token) != EOF; ++i)
-			{
-				printf("%d. %s\n", i + 1, token);
-			}
-			fclose(file);
-		}
-		else {
-			printf("Error I can't open your file.\n");
-		}*/
-		
-
+	
 	return 0;
 }
