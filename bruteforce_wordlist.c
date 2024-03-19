@@ -1,5 +1,5 @@
 /*
-    Program Name: bruteforce_zip.c
+    Program Name: bruteforce_wordlist.c
     Description: This program executes a bruteforce attack using a wordlist on an 
     encrypted zip file.
     Author: Gordibus
@@ -149,7 +149,7 @@ int main(void)
         // If all files were successfully extracted, mark the token as found and break out of the loop
         if (i == num_entries)
         {
-            printf("Decompression successful with token: %s\n", current->token);
+            printf("Decompress successful with token: %s\n", current->token);
             found = 1;
             break;
         }
