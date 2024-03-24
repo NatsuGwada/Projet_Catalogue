@@ -5,21 +5,16 @@
 #include <string.h>
 #include <zip.h>
 #include <locale.h>
-
-// Déclaration de la variable zip_file à l'extérieur de la fonction main
+// Declaration of the zip_file variable outside the main function
 struct zip *zip_file = NULL;
-
 // we define the name of the directory where the files will be extracted to
 #define EXTRACT_DIR "./extracted_files/"
-
-
 // Structure for list
 struct Node
 {
   char token[256];
   struct Node *next;
 };
-
 // ascii art
 void ascii_art() {
   printw("  #####  ######  #     #   #####   #####         #####\n");
@@ -41,7 +36,6 @@ void print_choices(char *choices[], int max_choice, int choice) {
     printw("%s\n", choices[i]);
   }
 }
-
 // returns the number of the files in the zip
 int get_number_files(struct zip *zip_file) {
   int num_files = zip_get_num_entries(zip_file, 0);
@@ -51,7 +45,6 @@ int get_number_files(struct zip *zip_file) {
   }
   return num_files;
 }
-
 // get the files in the zip
 int get_file_names(struct zip *zip_file, int num_files, char *file_names[]) {
   for (int i = 0; i < num_files; ++i) {
@@ -68,7 +61,6 @@ int get_file_names(struct zip *zip_file, int num_files, char *file_names[]) {
   }
   return 0;
 }
-
 // prints the file names and asks the user wich one to print out
 void get_file_content(struct zip *zip_file, int file_index) {
   file_index = file_index - 1;
@@ -128,7 +120,6 @@ void extract_file(struct zip *zip_file, int file_index, char *file_name) {
   zip_fclose(file);
   printw("\n");
 }
-
 // Function to add a token to the list (Gordibus)
 void add_token_to_list(struct Node **head, const char *token)
 {
@@ -157,8 +148,6 @@ struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
         temp->next = new_node;
     }
 }
-
-
 // Function to free the memory occupied by the list  (gordibus)
 void free_list(struct Node *head)
 {
@@ -170,16 +159,8 @@ void free_list(struct Node *head)
         free(temp);
     }
 }
-
-
-
-
-
-
 // ajouter un fichier a l'archive ouverte
-
 int ajout_fichier_au_zip(struct zip *zip_file, const char *file_path) {
-
   //ouvrir le fichier a ajouter
   FILE *fichier_a_ajouter = fopen(file_path, "rb");
   if (!fichier_a_ajouter) {
@@ -193,8 +174,6 @@ int ajout_fichier_au_zip(struct zip *zip_file, const char *file_path) {
   } else {
     nom_du_ficher++;
   }
-
-
   // Créer une source pour le fichier à ajouter
   struct zip_source *source = zip_source_file(zip_file, file_path, 0, 0);
   if (!source) {
@@ -213,77 +192,69 @@ int ajout_fichier_au_zip(struct zip *zip_file, const char *file_path) {
   } else {
     printw("File %s has added to the zip successfully / y bon y adan ZIP là", file_path);
   }
-
-  
-
   //fèmé tout
-
   fclose(fichier_a_ajouter);
   zip_source_free(source);
-
-
   return 0;
-
 }
-
 // print the help message
 void print_help(const char *program_name) {
   printw("Usage : %s [OPTIONS]\n", program_name);
   printw("Options : \n");
-  printw("    -a <ton fichier> add a File to ZIP / ça chabin c'est pour ajouté ton fichier au zip\n");
+  printw("    -a <ton fichier> add a File to ZIP / this function to add file to zip compress file\n");
   printw("    -f <filename> Specify the input file\n");
   printw("    -h Show this help\n");
+  refresh(); // Mettre à jour l'écran
+  getch();   // Attendre une entrée de l'utilisateur avant de quitter
 }
-
-
 // main function
 int main(int argc, char *argv[]) {
   // getopt
   int opt;
   // zip file name, set to NULL by default and set by the user with -f
   const char *filename = NULL;
-
-
   // parse the options
-  while ((opt = getopt(argc, argv, "af:h")) != -1) {
-    switch (opt) {
-    case 'f':
-      filename = optarg;
-      break;
+  while ((opt = getopt(argc, argv, "af:h")) != -1) 
+  {
+  switch (opt) {
+  case 'f':
+    filename = optarg;
+    break;
 
-    case 'a': 
-      filename == NULL;
-      if (filename == NULL) {
-        printw("Awa bay la vwa si dokiman aw épi opsyon -f prèmyé tan ti misye \n");
-        exit(EXIT_FAILURE);
-      }
-      
-      if (ajout_fichier_au_zip(zip_file, optarg) != 0) {
-        printw(" Cant add file like this !\n\n ");
-        printw("Non zanmi dokiman pa ka add kon sa \n");
-        exit(EXIT_FAILURE);
-      }else{
-        printw(" Add file %s on the ZIP , successfuly !\n\n", optarg);
-        printw("OOuuuiii fanmi la dokiman %s aw adan zip la \n!", optarg);
-        exit(EXIT_SUCCESS);
-      }
-      
-      break;
-
-    case 'h':
-      print_help(argv[0]);
-      exit(EXIT_SUCCESS);
-
-    case '?':
-      printf("Invalid option. Use -h or --help for usage.\n");
+  case 'a': 
+    filename == NULL;
+    if (filename == NULL) 
+    {
+      printw("Awa bay la vwa si dokiman aw épi opsyon -f prèmyé tan ti misye \n");
       exit(EXIT_FAILURE);
     }
+    if (ajout_fichier_au_zip(zip_file, optarg) != 0) 
+    {
+      printw(" Cant add file like this !\n\n ");
+      printw("Non zanmi dokiman pa ka add kon sa \n");
+      exit(EXIT_FAILURE);
+    }else{
+      printw(" Add file %s on the ZIP , successfuly !\n\n", optarg);
+      printw("OOuuuiii fanmi la dokiman %s aw adan zip la \n!", optarg);
+      exit(EXIT_SUCCESS);
+    }
+    break;
+  case 'h':
+    print_help(argv[0]);
+    printf("If you want to bruteforce with worldlist a zip file do -f <zip_file_name> and after this manipulation you are going to select the option you want.\n\n");
+    exit(EXIT_SUCCESS);
+
+  case '?':
+    printf("Invalid option. Use -h or --help for usage. Or us -f <zip_file_name.zip>.\n");
+    exit(EXIT_FAILURE);
+  }
   }
   // check if the filename is set
   if (filename == NULL) {
-    printf("Invalid option. Use -h or --help for usage.\n");
-    exit(EXIT_FAILURE);
+  printf("Invalid option. Use -h or --help for usage. Or us -f <zip_file_name.zip>.\n");
+  exit(EXIT_FAILURE);
   }
+
   // Initialize ncurses
   initscr();
   cbreak();
@@ -292,7 +263,7 @@ int main(int argc, char *argv[]) {
 
   // this is for the main menu
   int choice = 1;
-  char *choices[6] = {"Print the content of a file", "Extract a file","Mèt dokiman aw ", "Help / Wiki-aw","Quit","Bruteforce"};
+  char *choices[6] = {"Print the content of a file", "Extract a file","Mèt dokiman aw ", "Help / Wiki-aw","Bruteforce","Quit"};
   int max_choice = 6;
   // the pressed key
   int key;
@@ -372,12 +343,12 @@ int main(int argc, char *argv[]) {
         break;
 
       case 3:
-          // Ajouter un fichier à l'archive
-          // Afficher un message pour demander le chemin du fichier à ajouter
-          printw("Entrez le chemin du fichier à ajouter à l'archive : ");
+          // Add file to folder
+          // Show a message to ask for the path of the file to add
+          printw("Enter the path of the file to add to the archive:");
           refresh();
 
-          // Lire le chemin du fichier à ajouter depuis l'utilisateur
+          // Read the path of the file to add from the user
           char file_path[256];
           int ch;
           int i = 0;
@@ -386,10 +357,10 @@ int main(int argc, char *argv[]) {
           {
               if (ch == KEY_BACKSPACE || ch == 127)
               {
-                  // Gestion de la touche de suppression ou du caractère ASCII 127
+                  // Handling the delete key or ASCII character 127
                   if (i > 0)
                   {
-                      // Effacer le caractère précédent de l'affichage et du tableau
+                      // Clear previous character from display and table
                       printw("\b \b");
                       refresh();
                       i--;
@@ -397,7 +368,7 @@ int main(int argc, char *argv[]) {
               }
               else
               {
-                  // Afficher le caractère et l'ajouter au tableau
+                  // Show character and add it to table
                   printw("%c", ch);
                   refresh();
                   file_path[i++] = ch;
@@ -405,28 +376,28 @@ int main(int argc, char *argv[]) {
           }
           file_path[i] = '\0';
 
-          // Ajouter le fichier à l'archive
+          // Add file to archive
           if (ajout_fichier_au_zip(zip_file, file_path) != 0)
           {
-              printw("\n\n l'ajout du fichier dans l'archive n'a pas marché.\n");
+              printw("\n\n Adding the file to the archive did not work.\n");
           }
           else
           {
-              printw("\n oui c'est bon , le fichier s'est ajouté avec succès à l'archive.\n");
+              printw("\n Yeah it's okay ,the file was successfully added to the archive.\n");
               
-              // Fermer le fichier zip pour sauvegarder les modifications
+              // Close the zip file to save changes
               if (zip_close(zip_file) == -1) {
-                  printw("\n Erreur lors de la fermeture du fichier zip.\n");
+                  printw("\n Error during closing zip file.\n");
               }
               else {
-                  printw("\n Le fichier zip a été correctement mis à jour.\n");
+                  printw("\n The zip file was successfully updated.\n");
               }
           }
 
-          printw("\nVous avez entré : %s\n", file_path); // Afficher le chemin saisi
+          printw("\nYou have entered : %s\n", file_path); // check the path
 
-          // Attendre que l'utilisateur appuie sur une touche pour continuer
-          printw("\nAppuyez sur n'importe quelle touche pour revenir au menu.\n");
+          // Wait for the user to press a key to continue
+          printw("\nPress any key to return to the menu.\n");
           refresh();
           getch();
 
@@ -438,13 +409,13 @@ int main(int argc, char *argv[]) {
           clear();
           ascii_art();
           print_help(argv[0]); // Afficher les informations d'aide
-          printw("Bon chef, le premier choix c'est pour ecrire dans ton fichier.\n\n"
-          "le 2eme choix , tu choisis ton fichier a extrait dans le dossier extract_files de ton path.\n\n"
-          "le 3eme choix c'est pour mettre un fichier dans le zip(format.txt stp pour debuter)\n\n"
-          "le 4eme choix tu es deja la, cest ton wiki pour comprendre comment ici fonctionne.\n\n"
-          "le 5eme c'est pour quitter donc au cas ou déja , A pli ta !\n\n"
-          "Bon tu connais déja sé nou mèm amuse toi bien avec notre programme. \U0001F918 BigUp 971-972 \U0001F918\n\n"
-          "Le 6e choix est un brute force qui permet de trouver le password des fichier chiffrée dans un ZIP en fonctionne d'une wordlist\n\n");
+          printw("Ok boss, the first choice is to write to your file.\n\n"
+          "the 2nd choice, you choose your extracted file in the extract_files folder of your path.\n\n"
+          "the 3rd choice is to put a file in the zip (format.txt please to start)\n\n"
+          "the 4th choice you are already there, it's a wiki to understand how here works.\n\n"
+          "the 5th is for bruteforce the most important of the program you know mamen...\n\n"
+          "the 6th is to leave so just in case, A pli ta!\n\n"
+          "Well, you already know it, but have fun with our program. \U0001F918 BigUp 971-972 \U0001F918\n\n");
 
           printw("\nPress any key to go back to the menu\n");
           refresh();
@@ -453,7 +424,7 @@ int main(int argc, char *argv[]) {
         }
       break;
 
-      case 5:
+      case 6:
         printw("Quitting...\n");
         refresh();
         // Fermer le fichier zip avant de quitter
@@ -461,26 +432,29 @@ int main(int argc, char *argv[]) {
             printw("\nErreur lors de la fermeture du fichier zip.\n");
         }
         else {
-            printw("\n Le fichier zip a été correctement mis à jour.\n");
+            printw("\n The zip file has been successfully updated.\n");
         }
         endwin();
   
         return 0;
 
-      case 6:
+      case 5:
         clear();
         ascii_art();
-        printw("Système de BruteForce pour casser le mot de passe chiffer d'un fichier.txt dans une ZIP a l'aide d'une wordlist\n\n");
+        printw("BruteForce system to break the encrypted password of a .txt file in a ZIP using a wordlist\n\n");
         refresh();
         // Limit size to 256 characters
         FILE *wordlist;
         char zip_path[256];
         char wordlist_path[256];
         char token[256];
+        int cara;
+        int y = 0;
 
-        printf("\n Enter your ZIP file path: ");
-        scanf("%255s", zip_path); // Limit size to 255 characters to prevent buffer overflow
-
+        printw("\n Enter your ZIP file path: ");
+        refresh();
+        getnstr(zip_path, sizeof(zip_path)); // Limit size to 255 characters to prevent buffer overflow
+        
         // Open the ZIP file
         int error = 0;
         zip_t *z = zip_open(zip_path, 0, &error);
@@ -489,8 +463,31 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "Error opening the ZIP file.\n");
             return 1;
         }
-        printf("\n\n Enter your wordlist file path: ");
-        scanf("%255s", wordlist_path);
+        printw("\n\n Enter your wordlist file path: ");
+        refresh();
+        getnstr(wordlist_path, sizeof(wordlist_path));
+
+        while ((cara = getch()) != '\n' && y < 255)
+        {
+            if (cara == KEY_BACKSPACE || cara == 127)
+            {
+                // Gestion de la touche de suppression ou du caractère ASCII 127
+                if (y > 0)
+                {
+                    // Effacer le caractère précédent de l'affichage et du tableau
+                    printw("\b \b");
+                    refresh();
+                    y--;
+                }
+            }
+            else
+            {
+                // Afficher le caractère et l'ajouter au tableau
+                printw("%c", cara);
+                refresh();
+                file_path[y++] = cara;
+            }
+        }
 
         wordlist = fopen(wordlist_path, "r");
         if (wordlist == NULL)
@@ -598,8 +595,6 @@ int main(int argc, char *argv[]) {
 
         return 0;
         break;
-      
-
 
       default:
         printw("Invalid choice\n");
@@ -609,5 +604,6 @@ int main(int argc, char *argv[]) {
       }
     }
   }
+  endwin();
   return 0;
 }
