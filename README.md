@@ -11,7 +11,7 @@
       •	Merge request + merge request template 1 point
       •	-pull request + Pull request template 1point
       •	-Github project 1 point
-      •	un Readm, Contributing, code of conduction correctement régidées 1 point
+      •	un Readme, Contributing, code of conduction correctement régidées 1 point
       •	Respect du Gitflow, bonne branch (dev et main), protection de branch) 2 points
       •	un hook qui vérifie du code (linter) 2points
       •	une CI/Github actions qui lance votre linter 2points
