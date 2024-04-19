@@ -3,7 +3,7 @@
       Soutenance Git:
 
       groupe: 3
-      15minutes de présentation
+      15 minutes de présentation
       
       •	Qualité 3points
       •	Commit signé 1point
@@ -24,4 +24,4 @@
 
 
       Sujet: au choix
-      date de rendu 12mai au soir MAX
+      date de rendu 12 mai au soir MAX
