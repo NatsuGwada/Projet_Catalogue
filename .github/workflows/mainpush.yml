@@ -1,0 +1,6 @@
+name: Python Linter
+
+on:
+  push:
+    branches:
+      - main
