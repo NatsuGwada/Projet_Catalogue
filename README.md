@@ -1,3 +1,4 @@
+ HEAD
       Barème projet GIT
 
       Soutenance Git:
@@ -25,3 +26,7 @@
 
       Sujet: au choix
       date de rendu 12mai au soir MAX
+=======
+# Projet_C
+ici je met mes test de programme fonctionnel  et mise a jour.
+ Sa_mwen_ka_fè
