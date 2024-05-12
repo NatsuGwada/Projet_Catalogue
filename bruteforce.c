@@ -39,7 +39,7 @@ int main(void)//int argc, char *argv[])
 	char path[128];
 	char token[128];
 	//Ask to write his path to open and read the texte
-	printf("Write your wordlist path: ");
+	printf("Write your wordlist path:  ");
 	scanf("%s", path);
 		//Open the file to "read" 
 		if ((file = fopen(path, "rb")) != NULL)
