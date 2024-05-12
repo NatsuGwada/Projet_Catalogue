@@ -25,3 +25,7 @@
 
       Sujet: au choix
       date de rendu 12 mai au soir MAX
+
+
+      Toutes les Pull Request doivent êtres fait sur la branch "Dev" !
+      Toutes informations concernat le Github sont diffusé lors des reunions discord du groupes    (absence? an pé pa fè hàk ba zot mésyé)
